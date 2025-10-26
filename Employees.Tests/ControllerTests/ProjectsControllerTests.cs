@@ -184,7 +184,7 @@ namespace Employees.Tests.ControllerTests
 
             Assert.NotNull(longestCommonList);
             Assert.Contains($"368 days worked together", longestCommonList.First().TimeSum);
-            Assert.Contains($"3, 4", longestCommonList.First().employeeIds);
+            Assert.Contains($"3, 4", longestCommonList.First().EmployeeIds);
         }
     }
 }
