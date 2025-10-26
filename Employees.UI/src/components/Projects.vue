@@ -64,8 +64,9 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue'
-import type { PagedResult, ProjectDto, LongestCommonDto } from '@/models/'
+import { ref, onMounted } from 'vue'
+import type { PagedResult, ProjectDto } from '../Models/ProjectDto'
+import type { LongestCommonDto } from '../Models/LongestCommonDto'
 
 const projects = ref<ProjectDto[]>([])
 const totalCount = ref(0)
@@ -111,11 +112,11 @@ async function uploadFile() {
     showImportMessage("Import Failed")
   }
 
-  selectedFile.value = ''
+  selectedFile.value = null
   loadProjects()
 }
 
-function showImportMessage(message) {
+function showImportMessage(message : string) {
   importMessage.value = message
   isImportMessageVisible.value = true
 }
