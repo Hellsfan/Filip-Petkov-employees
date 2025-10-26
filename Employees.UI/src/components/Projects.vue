@@ -4,7 +4,7 @@
     <div class="import-section">
       <h3>Import Projects</h3>
       <input type="file" @change="onFileChange" />
-      <button @click="uploadFile">Upload File</button>
+      <button class="chill-colour" @click="uploadFile">Upload File</button>
 
       <div v-if="isImportMessageVisible" @click.self="closeMessage">
         <div>
@@ -35,9 +35,9 @@
         </table>
 
         <div class="pagination">
-          <button @click="prevPage" :disabled="pageNumber === 1">Previous</button>
+          <button class="chill-colour" @click="prevPage" :disabled="pageNumber === 1">Previous</button>
           <span>Page {{ pageNumber }} of {{ totalPages }}</span>
-          <button @click="nextPage" :disabled="pageNumber === totalPages">Next</button>
+          <button class="chill-colour" @click="nextPage" :disabled="pageNumber === totalPages">Next</button>
         </div>
         <div>Total projects: {{ totalCount }}</div>
       </div>
@@ -57,7 +57,7 @@
             </tr>
           </tbody>
         </table>
-        <button @click="GetLongestCommon">Get Longest Common Projects</button>
+        <button class="chill-colour" @click="GetLongestCommon">Get Longest Common Projects</button>
       </div>
     </div>
   </div>
@@ -169,5 +169,9 @@ onMounted(() => {
 .pagination {
   margin-top: 8px;
   margin-bottom: 8px;
+}
+
+.chill-colour {
+  background: #b2f8db
 }
 </style>
