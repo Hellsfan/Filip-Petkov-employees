@@ -75,6 +75,31 @@ namespace Employees.Tests.ControllerTests
         }
 
         [Fact]
+        public async Task ProjectsController_Import_MissingValues()
+        {
+            var dbContext = new EmployeesDbContext(
+            new DbContextOptionsBuilder<EmployeesDbContext>()
+                .UseInMemoryDatabase("Import_MissingValues").Options);
+
+            Repository<Project> repository = new Repository<Project>(dbContext);
+            ProjectQueryService service = new ProjectQueryService(dbContext);
+
+            var controller = new ProjectsController(service, repository);
+
+            var filePath = Path.Combine(AppContext.BaseDirectory, "TestFiles", "TestImportFile_MissingValues.csv");
+            var fileBytes = File.ReadAllBytes(filePath);
+            var stream = new MemoryStream(fileBytes);
+            var formFile = new FormFile(stream, 0, stream.Length, "file", "TestImportFile_MissingValues.csv");
+
+            var result = await controller.ImportProjectsFromCSV(formFile);
+
+            Assert.True(result);
+
+            var projects = dbContext.Projects.ToList();
+            Assert.Single(projects);
+        }
+
+        [Fact]
         public async Task ProjectsController_GetLongestCommonProjects_HappyPath()
         {
             var dbContext = new EmployeesDbContext(
@@ -187,5 +212,6 @@ namespace Employees.Tests.ControllerTests
             Assert.Contains($"3, 4", longestCommonList.First().EmployeeIds);
         }
     }
+
 }
  
