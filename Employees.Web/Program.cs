@@ -1,4 +1,8 @@
 using Employees.Web.Database;
+using Employees.Web.Repositories.Implementations;
+using Employees.Web.Repositories.Interfaces;
+using Employees.Web.Services.Queries.Implementations;
+using Employees.Web.Services.Queries.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,6 +12,9 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<EmployeesDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddTransient(typeof(IRepository<>),typeof(Repository<>));
+builder.Services.AddTransient<IProjectQueryService,ProjectQueryService>();
 
 var app = builder.Build();
 

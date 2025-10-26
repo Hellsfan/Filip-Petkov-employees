@@ -138,7 +138,7 @@ namespace Employees.Web.Controllers
         [Route("import")]
         public async Task<bool> ImportProjectsFromCSV(IFormFile file)
         {
-            if (file == null) return false;
+            if (file == null || Path.GetExtension(file.FileName).ToLowerInvariant() != ".csv") return false;
 
             var reader = new StreamReader(file.OpenReadStream());
 
