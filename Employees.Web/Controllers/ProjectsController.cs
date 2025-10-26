@@ -34,14 +34,12 @@ namespace Employees.Web.Controllers
         [Route("longest-common")]
         public async Task<List<LongestProjectDto>> GetLongestCommonProjects()
         {
-            //initialize the query to start with
-            var projects = _projectQueryService.Projects();
+            var projectsEnumerable = await _projectQueryService.Projects().ToListAsync();
 
             var finalResult = new List<LongestProjectDto>();
 
-            var projectDictByName1 = await projects.ToListAsync();
             var projectDictByName = new Dictionary<int, List<Project>>();
-            projectDictByName = projectDictByName1
+            projectDictByName = projectsEnumerable
                 .GroupBy(p => p.Name)
                 .ToDictionary(
                 g => g.Key,
